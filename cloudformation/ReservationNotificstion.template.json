@@ -1,0 +1,170 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "55e4e428-c77f-426c-9de1-1e74c00717d0": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -630,
+                    "y": 110
+                },
+                "z": 0,
+                "embeds": [],
+                "dependson": [
+                    "3aa87153-ef65-4e6c-a20d-4cb7e44daf1c"
+                ]
+            },
+            "75cb18a8-f42c-43fc-8ca0-ee1b0e2b8e1d": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -420,
+                    "y": 110
+                },
+                "z": 0,
+                "embeds": [],
+                "dependson": [
+                    "55e4e428-c77f-426c-9de1-1e74c00717d0",
+                    "366755e3-a041-419e-b772-420ffd154096"
+                ]
+            },
+            "3f228f57-2eb0-4b4f-a033-b02d65aede87": {
+                "source": {
+                    "id": "75cb18a8-f42c-43fc-8ca0-ee1b0e2b8e1d"
+                },
+                "target": {
+                    "id": "55e4e428-c77f-426c-9de1-1e74c00717d0"
+                },
+                "z": 1
+            },
+            "3aa87153-ef65-4e6c-a20d-4cb7e44daf1c": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -524.1697557276334,
+                    "y": 218.05075075620084
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "8fc27b63-c089-4689-90fa-e36274249b7f": {
+                "source": {
+                    "id": "55e4e428-c77f-426c-9de1-1e74c00717d0"
+                },
+                "target": {
+                    "id": "3aa87153-ef65-4e6c-a20d-4cb7e44daf1c"
+                },
+                "z": 11
+            },
+            "366755e3-a041-419e-b772-420ffd154096": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -270,
+                    "y": 110
+                },
+                "z": 0,
+                "embeds": [],
+                "dependson": [
+                    "883bbde3-1471-48cd-8c9b-322b3a8633f3"
+                ]
+            },
+            "f2125e93-93a6-4b3a-9bce-9a862b266fc4": {
+                "source": {
+                    "id": "75cb18a8-f42c-43fc-8ca0-ee1b0e2b8e1d"
+                },
+                "target": {
+                    "id": "366755e3-a041-419e-b772-420ffd154096"
+                },
+                "z": 11
+            },
+            "883bbde3-1471-48cd-8c9b-322b3a8633f3": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -140,
+                    "y": 110
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "4e3fc3f9-1ee2-4b90-be37-4f5258b6fcbc": {
+                "source": {
+                    "id": "366755e3-a041-419e-b772-420ffd154096"
+                },
+                "target": {
+                    "id": "883bbde3-1471-48cd-8c9b-322b3a8633f3"
+                },
+                "z": 11
+            }
+        }
+    },
+    "Resources": {
+        "ReservationsTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "55e4e428-c77f-426c-9de1-1e74c00717d0"
+                }
+            },
+            "DependsOn": [
+                "NotificationStreamFailureQueue"
+            ]
+        },
+        "EmailNotificationHandlerFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "75cb18a8-f42c-43fc-8ca0-ee1b0e2b8e1d"
+                }
+            },
+            "DependsOn": [
+                "ReservationsTable",
+                "ReservationNotificationTopic"
+            ]
+        },
+        "NotificationStreamFailureQueue": {
+            "Type": "AWS::SQS::Queue",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "3aa87153-ef65-4e6c-a20d-4cb7e44daf1c"
+                }
+            }
+        },
+        "ReservationNotificationTopic": {
+            "Type": "AWS::SNS::Topic",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "366755e3-a041-419e-b772-420ffd154096"
+                }
+            },
+            "DependsOn": [
+                "EmailSubscribtions"
+            ]
+        },
+        "EmailSubscribtions": {
+            "Type": "AWS::SNS::Subscription",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "883bbde3-1471-48cd-8c9b-322b3a8633f3"
+                }
+            }
+        }
+    }
+}
